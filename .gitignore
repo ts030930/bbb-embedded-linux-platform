@@ -1,0 +1,21 @@
+# Upstream large source trees (managed via download/clone scripts)
+bootloader/u-boot/
+kernel/linux/
+
+# Build artifacts
+*.o
+*.cmd
+*.mod
+*.mod.c
+*.order
+*.symvers
+*.tmp
+
+# Temporary files
+*.swp
+*~
+.DS_Store
+Thumbs.db
+
+# Target audit logs / temporary dumps
+docs/baseline/*.tar.gz
