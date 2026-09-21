@@ -1,6 +1,8 @@
 # Upstream large source trees (managed via download/clone scripts)
 bootloader/u-boot/
 kernel/linux/
+kernel/linux-*/
+kernel/*.tar.xz
 
 # Build artifacts
 *.o
