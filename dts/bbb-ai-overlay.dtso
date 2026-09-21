@@ -1,0 +1,27 @@
+/dts-v1/;
+/plugin/;
+
+/*
+ * BeagleBone Black Edge AI Custom Device Tree Overlay
+ * Target: AM335x Cortex-A8
+ * Developer: Taesun Park (ts030930)
+ */
+
+/ {
+    compatible = "ti,am335x-bone-black", "ti,am335x-bone", "ti,am33xx";
+
+    fragment@0 {
+        target-path = "/";
+        __overlay__ {
+            bbb_ai_ctrl: bbb-ai-ctrl {
+                compatible = "taesun,bbb-ai-ctrl";
+                status = "okay";
+                interrupt-parent = <&gpio1>;
+                interrupts = <16 2>; /* GPIO1_16 (Pin P9_15), Trigger: Falling Edge */
+                ai-engine = "tflite-micro-armv7";
+                buffer-size = <4096>;
+                firmware-version = "v1.0-edge-ai";
+            };
+        };
+    };
+};

@@ -22,3 +22,4 @@ Thumbs.db
 # Target audit logs / temporary dumps
 docs/baseline/*.tar.gz
 scratch_rtl/
+dts/decompiled_verify.dts
