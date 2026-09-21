@@ -41,34 +41,7 @@ cd "$KERNEL_SRC"
 
 # 2. Inject Custom Identification Log into init/main.c
 echo "[2/5] Injecting custom verification banner into init/main.c..."
-python3 -c '
-import re
-
-main_c_path = "init/main.c"
-with open(main_c_path, "r") as f:
-    content = f.read()
-
-custom_log = """
-\tpr_info("====================================================\\n");
-\tpr_info(" BeagleBone Black Edge AI Custom Kernel Booted!\\n");
-\tpr_info(" Engineer : Taesun Park (ts030930)\\n");
-\tpr_info(" Build Ver: Phase 3 Linux 6.6 LTS\\n");
-\tpr_info("====================================================\\n");
-"""
-
-if "BeagleBone Black Edge AI Custom Kernel Booted" not in content:
-    # Inject right before arch_call_rest_init or inside start_kernel
-    pattern = r"(start_kernel\(void\)\s*\{[^}]+pr_notice\(\"%s\", linux_banner\);)"
-    if re.search(pattern, content):
-        content = re.sub(pattern, r"\1" + custom_log, content, count=1)
-        with open(main_c_path, "w") as f:
-            f.write(content)
-        print("      Custom banner injected after linux_banner successfully!")
-    else:
-        print("      Could not match pattern, appending to start of start_kernel")
-else:
-    print("      Custom banner already present in init/main.c")
-'
+python3 "$PROJECT_ROOT/scripts/fix_main_c.py"
 
 # 3. Setup Cross-Compile Environment & Apply Defconfig
 echo "[3/5] Setting up Cross-Compilation & applying omap2plus_defconfig..."
